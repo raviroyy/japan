@@ -17,12 +17,8 @@ use App\Http\Controllers\ManageuserController;
 
 
 Route::get('/', [MainPageController::class,'index'])->name('hero');
-
 Route::post('login',[AuthController::class,'login'])->name('login');
-
 Route::get('logout',[AuthController::class,'logout'])->name('logout');
-
-
 Route::get('register',[AuthController::class,'register'])->name('register');
 Route::post('register_req',[AuthController::class,'register'])->name('register_req');
 
