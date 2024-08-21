@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AuthenticateUser
+
+class RedirectToAppropriateHome
 {
     /**
      * Handle an incoming request.
@@ -16,13 +17,13 @@ class AuthenticateUser
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
-    {
-        if(!Auth::check())
-        {
-            return redirect()->route('hero');
-        }
+{
+    $user = Auth::user();
 
-
-        return $next($request);
+    if ($user && $user->usertype === 'admin') {
+        return redirect()->route('admin.home');
     }
+
+    return redirect()->route('user.home');
+}
 }

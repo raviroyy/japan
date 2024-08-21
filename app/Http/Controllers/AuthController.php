@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\AuthRequest;
-
+use App\Http\Middleware\AuthenticateUser;
 class AuthController extends Controller
 {
     public function index()
@@ -67,6 +67,6 @@ public function register_req(AuthRequest $request)
 
         Auth::logout();    // Log out the user
         Session::flush();  // Clear all session data
-        return redirect('/');  // Redirect to the login page or wherever you want
+        return redirect()->route('hero');  // Redirect to the login page or wherever you want
     }
 }

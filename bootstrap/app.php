@@ -5,6 +5,8 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Support\Facades\Auth;
 use app\http\Middleware\AuthenticateUser;
+use App\Http\Middleware\RedirectToAppropriateHome;
+use Illuminate\Http\RedirectResponse;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -14,7 +16,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->append(AuthenticateUser::class);
+        $middleware->alias(['authenticateUser'=>AuthenticateUser::class,]);
+        $middleware->alias(['redirectToAppropriateHome'=>RedirectToAppropriateHome::class,]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
